@@ -18,7 +18,8 @@ function init() {
         return array;
     }
 
-    shuffle(cards); // shuffle the list of cards
+    // shuffle the list of cards
+    shuffle(cards);
 
     let html = "";
     cards.forEach(function (item) { //loop through each card and create its HTML
@@ -27,9 +28,27 @@ function init() {
       <i class="fa fa-${item}"></i>
     </li>`;
     });
-    document.getElementById("deck").innerHTML = html; // add html (the cards) to index.html
 
-};
+    // add html (the cards) to index.html
+    document.getElementById("deck").innerHTML = html;
+
+    //set up the event listener for a card
+    $("ul").on( 'click', 'li', function() {
+        displaySymbol(this);
+    });
+
+}
+
+// when clicked on the restart button, init() runs
+$(".restart").on('click',function(){
+   init();
+});
+
+// add classes to card so the symbol will show up.
+function displaySymbol(card) {
+    $(card).addClass("open show");
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
