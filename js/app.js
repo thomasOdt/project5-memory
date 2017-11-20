@@ -1,7 +1,11 @@
+let openCards = [];
+let moves =0;
 function init() {
-    //  Create a list that holds all of your cards based on there font-awesome name.
+    //console.log(openCards);
 
-    var cards = ['facebook', 'facebook', 'twitter', 'twitter', 'twitch', 'twitch', 'instagram', 'instagram', 'pied-piper-pp', 'pied-piper-pp', 'snapchat', 'snapchat', 'youtube', 'youtube', 'google-plus', 'google-plus'];
+    //  Create a list that holds all of your cards based on there font-awesome name.
+    let cards = ['facebook', 'facebook', 'twitter', 'twitter', 'twitch', 'twitch', 'instagram', 'instagram', 'pied-piper-pp', 'pied-piper-pp', 'snapchat', 'snapchat', 'youtube', 'youtube', 'google-plus', 'google-plus'];
+
 
     // Shuffle function from http://stackoverflow.com/a/2450976
     function shuffle(array) {
@@ -20,34 +24,62 @@ function init() {
 
     // shuffle the list of cards
     shuffle(cards);
+    console.log(cards);
 
     let html = "";
     cards.forEach(function (item) { //loop through each card and create its HTML
-        html += `
-    <li class="card">
-      <i class="fa fa-${item}"></i>
-    </li>`;
+        html += `<li class="card"><i class="fa fa-${item}"></i></li>`;
+        //html += `<li class="card open show"><i class="fa fa-${item}"></i></li>`;
     });
 
     // add html (the cards) to index.html
     document.getElementById("deck").innerHTML = html;
 
     //set up the event listener for a card
-    $("ul").on( 'click', 'li', function() {
-        displaySymbol(this);
+    $("ul").on('click', 'li', function () {
+        showCard(this);
+        OpenCard($(this).html());
     });
-
 }
-
-// when clicked on the restart button, init() runs
-$(".restart").on('click',function(){
-   init();
-});
-
 // add classes to card so the symbol will show up.
-function displaySymbol(card) {
+function showCard(card) {
     $(card).addClass("open show");
 }
+
+function OpenCard(card) {
+    openCards.push(card);
+    console.log(openCards);
+    if (openCards.length == 2) {
+        if (openCards[0] == card) {
+            setTimeout(cardsMatch,200);
+            openCards.length = 0;
+        } else {
+            setTimeout(cardsClose,2000);
+            openCards.length = 0;
+        }
+        addMoves();
+    }
+
+}
+
+function cardsClose(){
+    $(".open").toggleClass().addClass("card");
+}
+
+function cardsMatch(){
+    $(".open").toggleClass().addClass("card match");
+}
+
+function addMoves() {
+    moves++;
+    $(".moves").text(moves);
+    if(moves == 1){
+        $(".movesText").text("move");
+    } else {
+        $(".movesText").text("moves");
+    }
+}
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -60,4 +92,15 @@ function displaySymbol(card) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+// when clicked on the restart button, init() runs
+$(".restart").on('click',function(){
+    location.reload();
+});
+
 init();
+
+
+
+
+//console.log(countInArray(openCards, "facebook")); // returns 2
+//console.log(countInArray(list, 1)); // returns 3
