@@ -75,6 +75,11 @@ h1 {
     font-size: 33px;
 }
 
+#deck .card.wrong {
+    background:red;
+    font-size:33px;
+}
+
 #deck .card.match {
     cursor: default;
     background: #10cc5f;

@@ -1,5 +1,6 @@
 let openCards = [];
 let moves =0;
+
 function init() {
     //console.log(openCards);
 
@@ -28,8 +29,8 @@ function init() {
 
     let html = "";
     cards.forEach(function (item) { //loop through each card and create its HTML
-        html += `<li class="card"><i class="fa fa-${item}"></i></li>`;
-        //html += `<li class="card open show"><i class="fa fa-${item}"></i></li>`;
+        html += `<li class="card"><i class="fa fa-${item} fa-2x"></i></li>`;
+        //html += `<li class="card open show"><i class="fa fa-${item} fa-2x"></i></li>`;
     });
 
     // add html (the cards) to index.html
@@ -37,8 +38,11 @@ function init() {
 
     //set up the event listener for a card
     $("ul").on('click', 'li', function () {
-        showCard(this);
-        OpenCard($(this).html());
+        if(!$(this).hasClass("open") && !$(this).hasClass("match") && !$(this).hasClass("wrong") && openCards.length <= 1) { // check if a tile already is clicked or if the user already clicked 2 cards.
+            showCard(this);
+            OpenCard($(this).html());
+            console.log(openCards.length);
+        }
     });
 }
 // add classes to card so the symbol will show up.
@@ -52,10 +56,9 @@ function OpenCard(card) {
     if (openCards.length == 2) {
         if (openCards[0] == card) {
             setTimeout(cardsMatch,200);
-            openCards.length = 0;
         } else {
+            cardsWrong();
             setTimeout(cardsClose,2000);
-            openCards.length = 0;
         }
         addMoves();
     }
@@ -63,11 +66,17 @@ function OpenCard(card) {
 }
 
 function cardsClose(){
-    $(".open").toggleClass().addClass("card");
+    $(".open").toggleClass("open").removeClass("wrong");
+    openCards.length = 0; // set openCards to zero so the user can pick a new card. It's on purpose at this spot, after te setTimeout otherwise the user can pick more than 2 cards in one turn.
+}
+
+function cardsWrong(){
+    $(".open").toggleClass().delay(10).addClass("card open wrong");
 }
 
 function cardsMatch(){
     $(".open").toggleClass().addClass("card match");
+    openCards.length = 0;// set openCards to zero so the user can pick a new card. It's on purpose at this spot, after te setTimeout otherwise the user can pick more than 2 cards in one turn.
 }
 
 function addMoves() {
