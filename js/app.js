@@ -41,7 +41,6 @@ function init() {
         if(!$(this).hasClass("open") && !$(this).hasClass("match") && !$(this).hasClass("wrong") && openCards.length <= 1) { // check if a tile already is clicked or if the user already clicked 2 cards.
             showCard(this);
             OpenCard($(this).html());
-            console.log(openCards.length);
         }
     });
 }
@@ -52,7 +51,7 @@ function showCard(card) {
 
 function OpenCard(card) {
     openCards.push(card);
-    console.log(openCards);
+    //console.log(openCards);
     if (openCards.length == 2) {
         if (openCards[0] == card) {
             setTimeout(cardsMatch,200);
@@ -71,11 +70,11 @@ function cardsClose(){
 }
 
 function cardsWrong(){
-    $(".open").toggleClass().delay(10).addClass("card open wrong");
+    $(".open").toggleClass().delay(10).addClass("card open wrong").effect("shake");
 }
 
 function cardsMatch(){
-    $(".open").toggleClass().addClass("card match");
+    $(".open").toggleClass().addClass("card match").effect("pulsate");
     openCards.length = 0;// set openCards to zero so the user can pick a new card. It's on purpose at this spot, after te setTimeout otherwise the user can pick more than 2 cards in one turn.
 }
 
