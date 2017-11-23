@@ -115,4 +115,3 @@ $(".restart").on('click', function () {
 });
 
 init();
-
