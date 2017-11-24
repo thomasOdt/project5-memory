@@ -1,6 +1,7 @@
 let openCards = [];
 let moves = 0;
 let goodCards = 0;
+let wrongGuess = 0;
 
 function init() {
 
@@ -25,8 +26,7 @@ function init() {
 
     // shuffle the list of cards
     shuffle(cards);
-    console.log(cards);
-
+    
     let html = "";
     cards.forEach(function (item) { //loop through each card and create its HTML
         html += `<li class="card"><i class="fa fa-${item} fa-2x"></i></li>`;
@@ -42,6 +42,7 @@ function init() {
             OpenCard($(this).html());
         }
     });
+
 }
 
 // add classes to card so the symbol will show up.
@@ -51,6 +52,10 @@ function showCard(card) {
 
 function OpenCard(card) {
     openCards.push(card);
+    if(openCards.length === 1 && moves === 0){
+        // start gimeTimer when first card is clicked.
+        gameTimer();
+    }
     if (openCards.length === 2) {
         if (openCards[0] === card) {
             setTimeout(cardsMatch, 200);
@@ -61,9 +66,11 @@ function OpenCard(card) {
             }
         } else {
             cardsWrong();
+            wrongGuess+=1;
             setTimeout(cardsClose, 2000);
         }
         addMoves();
+        checkWrongGuess();
     }
 
 }
@@ -92,21 +99,59 @@ function addMoves() {
     }
 }
 
+function checkWrongGuess(){
+    // after 5 of 10 wrong guesses, a star will be removed.
+    if(wrongGuess === 5){
+        $('.stars li:nth-child(3)').removeClass("gold");
+    } else if(wrongGuess === 10) {
+        $('.stars li:nth-child(2)').removeClass("gold");
+    }
+}
+
 function finished() {
     $('.container').fireworks({
-        sound: true, // sound effect
         opacity: 0.9,
         height: '100%',
         width: '100%'
     });
     $(".turn").text(moves);
-    setTimeout(showScoreboard, 3000);
+    $(".time").html($("#timer").html());
+    $(".star").html($(".stars").html());
+    setTimeout(showScoreboard, 4000);
 }
 
 function showScoreboard() {
     $('.finish').fadeIn(500).removeClass("noShow").on('click', function () {
         location.reload();
     });
+}
+
+// timer function from: https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+function gameTimer(){
+    let minutesLabel = document.getElementById("minutes");
+    let secondsLabel = document.getElementById("seconds");
+    let totalSeconds = 0;
+    setInterval(setTime, 1000);
+
+    function setTime()
+    {
+        ++totalSeconds;
+        secondsLabel.innerHTML = pad(totalSeconds%60);
+        minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+    }
+
+    function pad(val)
+    {
+        let valString = val + "";
+        if(valString.length < 2)
+        {
+            return "0" + valString;
+        }
+        else
+        {
+            return valString;
+        }
+    }
 }
 
 // when clicked on the restart button, page reload so init() will run again.

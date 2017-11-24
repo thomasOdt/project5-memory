@@ -24,21 +24,24 @@
             <label><span class="moves">0</span> <span class="movesText">Moves</span></label>
 
             <ul class="stars">
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
+                <li class="gold"><i class="fa fa-star fa-2x"></i></li>
+                <li class="gold"><i class="fa fa-star fa-2x"></i></li>
+                <li class="gold"><i class="fa fa-star fa-2x"></i></li>
             </ul>
 
             <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>
         </section>
+        <div id="timer"><label id="minutes">00</label>:<label id="seconds">00</label></div>
 
         <ul id="deck">
         </ul>
     </div>
+
     <div class="finish noShow"><h2>Congratulations, You won!</h2>
-        <p>You did it in: <span class="turn"></span> moves!</p>
+        <p>You did it in <span class="turn"></span> moves and a time of <span class="time"></span><br>
+        <span class="star"></span> </p>
         <small>Click to restart</small>
     <img src="img/minions.gif" alt="minions cheering">
     <!-- https://giphy.com/gifs/random-despicable-me-minions-YD52EUqEZ0yxG/download -->
