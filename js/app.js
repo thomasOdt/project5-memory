@@ -26,7 +26,7 @@ function init() {
 
     // shuffle the list of cards
     shuffle(cards);
-    
+
     let html = "";
     cards.forEach(function (item) { //loop through each card and create its HTML
         html += `<li class="card"><i class="fa fa-${item} fa-2x"></i></li>`;
@@ -52,8 +52,8 @@ function showCard(card) {
 
 function OpenCard(card) {
     openCards.push(card);
-    if(openCards.length === 1 && moves === 0){
-        // start gimeTimer when first card is clicked.
+    if (openCards.length === 1 && moves === 0) {
+        // start gameTimer when first card is clicked.
         gameTimer();
     }
     if (openCards.length === 2) {
@@ -66,7 +66,7 @@ function OpenCard(card) {
             }
         } else {
             cardsWrong();
-            wrongGuess+=1;
+            wrongGuess += 1;
             setTimeout(cardsClose, 2000);
         }
         addMoves();
@@ -99,11 +99,11 @@ function addMoves() {
     }
 }
 
-function checkWrongGuess(){
+function checkWrongGuess() {
     // after 5 of 10 wrong guesses, a star will be removed.
-    if(wrongGuess === 5){
+    if (wrongGuess === 5) {
         $('.stars li:nth-child(3)').removeClass("gold");
-    } else if(wrongGuess === 10) {
+    } else if (wrongGuess === 10) {
         $('.stars li:nth-child(2)').removeClass("gold");
     }
 }
@@ -127,28 +127,24 @@ function showScoreboard() {
 }
 
 // timer function from: https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-function gameTimer(){
+function gameTimer() {
     let minutesLabel = document.getElementById("minutes");
     let secondsLabel = document.getElementById("seconds");
     let totalSeconds = 0;
     setInterval(setTime, 1000);
 
-    function setTime()
-    {
+    function setTime() {
         ++totalSeconds;
-        secondsLabel.innerHTML = pad(totalSeconds%60);
-        minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+        secondsLabel.innerHTML = pad(totalSeconds % 60);
+        minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
     }
 
-    function pad(val)
-    {
+    function pad(val) {
         let valString = val + "";
-        if(valString.length < 2)
-        {
+        if (valString.length < 2) {
             return "0" + valString;
         }
-        else
-        {
+        else {
             return valString;
         }
     }

@@ -107,11 +107,11 @@ h1 {
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
-    color:grey;
+    color: grey;
 }
 
 .score-panel .stars li.gold {
-    color:gold;
+    color: gold;
 }
 
 .score-panel .restart {
@@ -145,10 +145,11 @@ h1 {
 
 .star li {
     margin: 10px 0 0 0;
-    display:inline-block;
+    display: inline-block;
     list-style: none;
-    color:grey;
+    color: grey;
 }
+
 .star li.gold {
-    color:gold;
+    color: gold;
 }
