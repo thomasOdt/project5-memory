@@ -8,7 +8,7 @@ Pick two different cards by clicking on them. If they are the same, they will ap
 
 ## star rating
 
-three stars: Les then 5 wrong picks
-two stars: les then 10 wrong picks
+three stars: Les then 5 wrong picks<br>
+two stars: les then 10 wrong picks<br>
 one star: you always get one star :)
 
